@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { AppComponent } from './app.component';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +20,7 @@ import { RouterOutlet } from '@angular/router';
       </main>
   styleUrl: './app.component.scss'
 })
+
 export class AppComponent {
   title = 'angular';
   name = ''
