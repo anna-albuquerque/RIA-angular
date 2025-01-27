@@ -15,6 +15,12 @@ import { AppComponent } from './app.component';
               <h1>Hello, {{ name }}</h1>
               <label for="name">Name: </label>
               <input [(ngModel)]="name">
+                <h2>...:::Testes para ver como ficam aqui abaixo:::...</h2>
+                <button [class.button-new]="isNew">Click here</button>
+                <p [style.color]="textColor">This text has a dynamic color</p>
+                <button [class.button-new]="isNew ? true : false">Click here</button>
+                <button [class.button-enabled]="isNew && !isFilled">Click here</button>
+                <input [(ngModel)]="classCSS" [class]="classCSS"> "input aqui" </input>         
             </div>
           </div>
       </main>
