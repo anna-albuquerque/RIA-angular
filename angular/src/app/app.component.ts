@@ -1,36 +1,45 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';  // Caso use o roteamento
-import { FormsModule } from '@angular/forms'; // Importa FormsModule
-import { BrowserModule } from '@angular/platform-browser';
+import { ProdutoService } from './produto.service';
+import { Produto } from './produto.model';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, FormsModule], // Inclui o FormsModule e o RouterOutlet
-  template: `
-      <main class="main">
-          <div class="content">
-            <div class="left-side">
-              <h1>Hello, {{ name }}</h1>
-              <label for="name">Name: </label>
-              <input [(ngModel)]="name">
-              <h2>...:::Testes para ver como ficam aqui abaixo:::...</h2>
-              <button [class.button-new]="isNew">Click here</button>
-              <p [style.color]="textColor">This text has a dynamic color</p>
-              <button [class.button-new]="isNew ? true : false">Click here</button>
-              <button [class.button-enabled]="isNew && !isFilled">Click here</button>
-              <input [(ngModel)]="classCSS" [class]="classCSS"> 
-            </div>
-          </div>
-      </main>
-  `,
-  styleUrls: ['./app.component.scss'] // Corrige para styleUrls no plural
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular';
-  name = '';
-  isNew = false;
-  textColor = 'black'; // Exemplo de valor para textColor
-  isFilled = true; // Exemplo de valor para isFilled
-  classCSS = 'default-class'; // Exemplo de valor para classCSS
+  produtos: Produto[] = [];
+  produtoEdit: Produto = new Produto('', 0, false);
+  editIndex: number | null = null;
+
+  constructor(private produtoService: ProdutoService) {}
+
+  ngOnInit() {
+    this.produtos = this.produtoService.getAll();
+  }
+
+  onAdd() {
+    this.produtoService.add(this.produtoEdit);
+    this.produtoEdit = new Produto('', 0, false); // Limpar após adicionar
+    this.produtos = this.produtoService.getAll();
+  }
+
+  onEdit(index: number) {
+    this.editIndex = index;
+    this.produtoEdit = { ...this.produtos[index] };
+  }
+
+  onUpdate() {
+    if (this.editIndex !== null) {
+      this.produtoService.update(this.editIndex, this.produtoEdit);
+      this.produtos = this.produtoService.getAll();
+      this.produtoEdit = new Produto('', 0, false);
+      this.editIndex = null;
+    }
+  }
+
+  onDelete(index: number) {
+    this.produtoService.remove(index);
+    this.produtos = this.produtoService.getAll();
+  }
 }
