@@ -1,31 +1,27 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-
-// Importando módulos do Angular Material
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-
-// Importando FormsModule para usar ngModel
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    FormsModule,  // Adicionando FormsModule aqui para o ngModel
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
+    BrowserAnimationsModule,
     MatTableModule,
-    MatCheckboxModule,
-    MatDialogModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    FormsModule
+  ]
 })
 export class AppModule {}
