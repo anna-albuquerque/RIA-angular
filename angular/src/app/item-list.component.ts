@@ -7,7 +7,7 @@ import { ItemDialogComponent } from './item-dialog.component';
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
-  styleUrls: ['./item-list.component.css']
+//  styleUrls: ['./item-list.component.css']
 })
 export class ItemListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'quantidade', 'ativo', 'acoes'];

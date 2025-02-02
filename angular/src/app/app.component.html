@@ -1,57 +1,52 @@
-<div class="container">
-  <h1>Produtos</h1>
-
-  <div *ngIf="editIndex !== null">
-    <h2>Editar Produto</h2>
-  </div>
-  <div *ngIf="editIndex === null">
-    <h2>Criar Produto</h2>
-  </div>
-
-  <mat-form-field>
-    <mat-label>Nome</mat-label>
-    <input matInput [(ngModel)]="produtoEdit.nome" />
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Preço</mat-label>
-    <input matInput type="number" [(ngModel)]="produtoEdit.preco" />
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Disponível</mat-label>
-    <mat-checkbox [(ngModel)]="produtoEdit.disponivel"></mat-checkbox>
-  </mat-form-field>
-
-  <button mat-raised-button (click)="editIndex !== null ? onUpdate() : onAdd()">
-    {{ editIndex !== null ? 'Atualizar' : 'Adicionar' }}
-  </button>
-
-  <table mat-table [dataSource]="produtos">
-    <ng-container matColumnDef="nome">
-      <th mat-header-cell *matHeaderCellDef> Nome </th>
-      <td mat-cell *matCellDef="let produto"> {{produto.nome}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="preco">
-      <th mat-header-cell *matHeaderCellDef> Preço </th>
-      <td mat-cell *matCellDef="let produto"> {{produto.preco}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="disponivel">
-      <th mat-header-cell *matHeaderCellDef> Disponível </th>
-      <td mat-cell *matCellDef="let produto"> {{produto.disponivel ? 'Sim' : 'Não'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Ações </th>
-      <td mat-cell *matCellDef="let produto; let i = index">
-        <button mat-button (click)="onEdit(i)">Editar</button>
-        <button mat-button (click)="onDelete(i)">Excluir</button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+<div *ngIf="editIndex !== null">
+  <h2>Editar Produto</h2>
 </div>
+<div *ngIf="editIndex === null">
+  <h2>Adicionar Produto</h2>
+</div>
+
+<mat-form-field appearance="outline">
+  <mat-label>Nome</mat-label>
+  <input matInput [(ngModel)]="produtoEdit.nome">
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+  <mat-label>Preço</mat-label>
+  <input matInput type="number" [(ngModel)]="produtoEdit.preco">
+</mat-form-field>
+
+<mat-checkbox [(ngModel)]="produtoEdit.disponivel">Disponível</mat-checkbox>
+
+<button mat-raised-button color="primary" (click)="editIndex !== null ? onUpdate() : onAdd()">
+  {{ editIndex !== null ? 'Atualizar' : 'Adicionar' }}
+</button>
+
+<table mat-table [dataSource]="produtos" class="mat-elevation-z8">
+  <ng-container matColumnDef="nome">
+    <th mat-header-cell *matHeaderCellDef> Nome </th>
+    <td mat-cell *matCellDef="let produto"> {{ produto.nome }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="preco">
+    <th mat-header-cell *matHeaderCellDef> Preço </th>
+    <td mat-cell *matCellDef="let produto"> R$ {{ produto.preco }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="disponivel">
+    <th mat-header-cell *matHeaderCellDef> Disponível </th>
+    <td mat-cell *matCellDef="let produto">
+      <mat-checkbox [checked]="produto.disponivel" disabled></mat-checkbox>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="acoes">
+    <th mat-header-cell *matHeaderCellDef> Ações </th>
+    <td mat-cell *matCellDef="let produto; let i = index">
+      <button mat-button (click)="onEdit(i)">Editar</button>
+      <button mat-button color="warn" (click)="onDelete(i)">Excluir</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

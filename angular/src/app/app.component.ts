@@ -1,27 +1,40 @@
 import { Component } from '@angular/core';
-import { ProdutoService } from './produto.service';
-import { Produto } from './produto.model';
+import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatButtonModule
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  produtos: Produto[] = [];
-  produtoEdit: Produto = new Produto('', 0, false);
+  produtos = [
+    { nome: 'Produto 1', preco: 10.99, disponivel: true },
+    { nome: 'Produto 2', preco: 20.99, disponivel: false }
+  ];
+
+  displayedColumns: string[] = ['nome', 'preco', 'disponivel', 'acoes'];
   editIndex: number | null = null;
-
-  constructor(private produtoService: ProdutoService) {}
-
-  ngOnInit() {
-    this.produtos = this.produtoService.getAll();
-  }
+  produtoEdit: any = { nome: '', preco: 0, disponivel: false };
 
   onAdd() {
-    this.produtoService.add(this.produtoEdit);
-    this.produtoEdit = new Produto('', 0, false); // Limpar após adicionar
-    this.produtos = this.produtoService.getAll();
+    this.produtos.push({ ...this.produtoEdit });
+    this.produtoEdit = { nome: '', preco: 0, disponivel: false };
   }
 
   onEdit(index: number) {
@@ -31,15 +44,13 @@ export class AppComponent {
 
   onUpdate() {
     if (this.editIndex !== null) {
-      this.produtoService.update(this.editIndex, this.produtoEdit);
-      this.produtos = this.produtoService.getAll();
-      this.produtoEdit = new Produto('', 0, false);
+      this.produtos[this.editIndex] = { ...this.produtoEdit };
       this.editIndex = null;
+      this.produtoEdit = { nome: '', preco: 0, disponivel: false };
     }
   }
 
   onDelete(index: number) {
-    this.produtoService.remove(index);
-    this.produtos = this.produtoService.getAll();
+    this.produtos.splice(index, 1);
   }
 }
