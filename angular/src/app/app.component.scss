@@ -1,7 +1,7 @@
 :host {
   // Paleta de cores neon roxo
   --dark-bg: #f7a9d4;
-  --primary-color: #b300ff; // Roxo Neon
+  --primary-color: #020202; // Roxo Neon
   --secondary-color: #ff00ff; // Magenta Neon
   --accent-color: #8000ff; // Roxo intenso
   --text-color: #f1f1f1;
@@ -9,8 +9,8 @@
   --border-radius: 12px;
 
   // Gradientes vibrantes
-  --neon-gradient: linear-gradient(135deg, rgb(53, 2, 34), rgb(104, 15, 27));
-  --soft-gradient: linear-gradient(180deg, rgb(107, 5, 68), rgba(224, 148, 205, 0.904));
+  --neon-gradient: linear-gradient(135deg, rgb(3, 255, 66), rgb(1, 165, 64));
+  --soft-gradient: linear-gradient(180deg, rgb(145, 44, 106), rgba(224, 148, 205, 0.904));
 
   font-family: "Poppins", roboto, sans-serif;
   background: var(--dark-bg);
@@ -54,7 +54,7 @@ main {
   background: var(--soft-gradient);
   padding: 2rem;
   border-radius: var(--border-radius);
-  box-shadow: 0 0 15px rgba(201, 12, 144, 0.548);
+  box-shadow: 0 0 15px rgba(53, 53, 53, 0.548);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,7 +64,7 @@ main {
 }
 
 button {
-  background: linear-gradient(135deg, #8000ff, #d400ff);
+  background: linear-gradient(135deg, #2b2630, #5c4351);
   border: none;
   padding: 10px 20px;
   font-size: 1rem;
@@ -73,7 +73,7 @@ button {
   color: #FFFFFF;
   cursor: pointer;
   transition: 0.3s;
-  box-shadow: 0 0 15px #8000ff;
+  box-shadow: 0 0 15px #362942;
 }
 
 button:hover {
@@ -87,17 +87,50 @@ label {
 }
 
 input[type="checkbox"] {
-  appearance: none; // Remove o estilo padrão do navegador
+  appearance: none; 
   width: 20px;
   height: 20px;
-  border-radius: 5px; // Bordas arredondadas para um estilo mais moderno
-  border: 2px solid var(--primary-color); // Cor da borda
-  background-color: transparent; // Fundo inicial transparente
+  border-radius: 5px; 
+  border: 2px solid var(--primary-color); 
+  background-color: transparent; 
   transition: all 0.3s ease-in-out;
 }
 
 input[type="checkbox"]:checked {
-  background-color: var(--primary-color); // Cor ao marcar o checkbox
-  box-shadow: 0 0 10px var(--secondary-color);
-  border-color: var(--secondary-color);
+  background-color: #77088d; 
+  box-shadow: 0 0 10px #350c3d;
+  border-color: #d400ff;
+}
+
+:host ::ng-deep .p-dialog {
+  font-family: var(--font-family-primary); /* Use a fonte da página */
+  color: #d400ff; /* Mantém a cor do texto */
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+  font-family: var(--font-family-heading); /* Fonte personalizada para o cabeçalho */
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  font-size: 1rem;
+  line-height: 1.6; /* Mantém a mesma formatação do texto da página */
+}
+
+:host ::ng-deep .p-dialog .p-dialog-footer button {
+  font-family: var(--font-family-primary); /* Aplica a mesma fonte aos botões */
+}
+
+:host ::ng-deep .p-confirm-dialog-accept,
+:host ::ng-deep .p-confirm-dialog-reject {
+  background: #d400ff; 
+  color: var(--text-color);
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+:host ::ng-deep .p-confirm-dialog-reject {
+  background: #d400ff; 
 }
