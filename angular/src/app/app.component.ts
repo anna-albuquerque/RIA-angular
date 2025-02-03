@@ -1,33 +1,35 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
-import { AppComponent } from './app.component';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { HelloComponent } from './hello.component';
+import { OwnerCrudComponent } from './owner-crud.component';
+import { PageFeedbackComponent } from './page-feedback.component';
 
 @Component({
   selector: 'app-root',
+  template: `
+    <main class="main">
+      <div class="content">
+        <!-- Exemplo de inclusão do HelloComponent -->
+        <app-hello></app-hello>
+        <!-- Exemplo de inclusão do OwnerCrudComponent -->
+        <owner-crud></owner-crud>
+        <!-- Exemplo de inclusão do PageFeedbackComponent -->
+        <page-feedback (feedbackGiven)="handleFeedback($event)"></page-feedback>
+      </div>
+    </main>
+  `,
+  styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [RouterOutlet, FormsModule],
-  //templateUrl: './app.component.html',
-  template:
-      <main class="main">
-          <div class="content">
-            <div class="left-side">
-              <h1>Hello, {{ name }}</h1>
-              <label for="name">Name: </label>
-              <input [(ngModel)]="name">
-                <h2>...:::Testes para ver como ficam aqui abaixo:::...</h2>
-                <button [class.button-new]="isNew">Click here</button>
-                <p [style.color]="textColor">This text has a dynamic color</p>
-                <button [class.button-new]="isNew ? true : false">Click here</button>
-                <button [class.button-enabled]="isNew && !isFilled">Click here</button>
-                <input [(ngModel)]="classCSS" [class]="classCSS"> "input aqui" </input>         
-            </div>
-          </div>
-      </main>
-  styleUrl: './app.component.scss'
+  imports: [
+    RouterModule,
+    HelloComponent,      // Certifique-se de importar o HelloComponent
+    OwnerCrudComponent,  // Certifique-se de importar o OwnerCrudComponent
+    PageFeedbackComponent // Certifique-se de importar o PageFeedbackComponent
+  ],
+  schemas: [NO_ERRORS_SCHEMA] 
 })
-
 export class AppComponent {
-  title = 'angular';
-  name = ''
+  handleFeedback(feedback: boolean) {
+    console.log('Feedback recebido:', feedback);
+  }
 }
