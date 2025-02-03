@@ -1,18 +1,18 @@
 :host {
-  // Paleta de cores moderna
-  --dark-bg: #121212;
-  --primary-color: #0ff; // Ciano Neon
-  --secondary-color: #ff007f; // Magenta Neon
-  --accent-color: #00ff7f; // Verde Neon
+  // Paleta de cores neon roxo
+  --dark-bg: #f7a9d4;
+  --primary-color: #b300ff; // Roxo Neon
+  --secondary-color: #ff00ff; // Magenta Neon
+  --accent-color: #8000ff; // Roxo intenso
   --text-color: #f1f1f1;
   --muted-text: #aaaaaa;
   --border-radius: 12px;
 
   // Gradientes vibrantes
-  --neon-gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  --soft-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.9), rgba(255, 255, 255, 0.05));
+  --neon-gradient: linear-gradient(135deg, rgb(53, 2, 34), rgb(104, 15, 27));
+  --soft-gradient: linear-gradient(180deg, rgb(107, 5, 68), rgba(224, 148, 205, 0.904));
 
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", roboto, sans-serif;
   background: var(--dark-bg);
   color: var(--text-color);
   box-sizing: border-box;
@@ -54,7 +54,7 @@ main {
   background: var(--soft-gradient);
   padding: 2rem;
   border-radius: var(--border-radius);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(201, 12, 144, 0.548);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,24 +64,40 @@ main {
 }
 
 button {
-  background: var(--neon-gradient);
+  background: linear-gradient(135deg, #8000ff, #d400ff);
   border: none;
   padding: 10px 20px;
   font-size: 1rem;
   font-weight: bold;
   border-radius: var(--border-radius);
-  color: #121212;
+  color: #FFFFFF;
   cursor: pointer;
   transition: 0.3s;
-  box-shadow: 0 0 10px var(--primary-color);
+  box-shadow: 0 0 15px #8000ff;
 }
 
 button:hover {
-  box-shadow: 0 0 20px var(--secondary-color);
+  box-shadow: 0 0 25px #d400ff;
 }
 
 label {
   font-size: 1.1rem;
   font-weight: bold;
   color: var(--primary-color);
+}
+
+input[type="checkbox"] {
+  appearance: none; // Remove o estilo padrão do navegador
+  width: 20px;
+  height: 20px;
+  border-radius: 5px; // Bordas arredondadas para um estilo mais moderno
+  border: 2px solid var(--primary-color); // Cor da borda
+  background-color: transparent; // Fundo inicial transparente
+  transition: all 0.3s ease-in-out;
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--primary-color); // Cor ao marcar o checkbox
+  box-shadow: 0 0 10px var(--secondary-color);
+  border-color: var(--secondary-color);
 }
