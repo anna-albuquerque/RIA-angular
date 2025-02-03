@@ -23,16 +23,28 @@ import { ToggleSwitch } from 'primeng/toggleswitch';
       >
         <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="name" style="width:60%">
+            <th pSortableColumn="name" style="width:40%">
               Nome <p-sortIcon field="name"></p-sortIcon>
             </th>
-            <th>Remover</th>
+            <th pSortableColumn="age" style="width:20%">
+              Idade <p-sortIcon field="age"></p-sortIcon>
+            </th>
+            <th pSortableColumn="isActive" style="width:20%">
+              Ativo <p-sortIcon field="isActive"></p-sortIcon>
+            </th>
+            <th style="width:20%">Remover</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
           <tr>
             <td>{{ item.name }}</td>
-            <td><p-button icon="pi pi-trash" (click)="remove(item)" label="Remove"></p-button></td>
+            <td>{{ item.age }}</td> <!-- Exibindo a idade -->
+            <td>
+              <p-toggleswitch [(ngModel)]="item.isActive"></p-toggleswitch> <!-- Usando ToggleSwitch para o campo isActive -->
+            </td>
+            <td>
+              <p-button icon="pi pi-trash" (click)="remove(item)" label="Remover"></p-button>
+            </td>
           </tr>
         </ng-template>
       </p-table>
@@ -41,7 +53,6 @@ import { ToggleSwitch } from 'primeng/toggleswitch';
 })
 export class OwnerListComponent {
   @Input() ownersList: Array<Owner> = [];
-
   @Output() removeOutEvent = new EventEmitter<Owner>();
 
   remove(item: Owner) {

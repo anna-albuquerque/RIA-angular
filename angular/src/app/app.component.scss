@@ -1,16 +1,16 @@
 :host {
   // Paleta de cores neon roxo
-  --dark-bg: #f7a9d4;
-  --primary-color: #020202; // Roxo Neon
+  --dark-bg: #ce8fb2;
+  --primary-color: #000000; // Roxo Neon
   --secondary-color: #ff00ff; // Magenta Neon
   --accent-color: #8000ff; // Roxo intenso
-  --text-color: #f1f1f1;
+  --text-color: #720256;
   --muted-text: #aaaaaa;
   --border-radius: 12px;
 
   // Gradientes vibrantes
-  --neon-gradient: linear-gradient(135deg, rgb(3, 255, 66), rgb(1, 165, 64));
-  --soft-gradient: linear-gradient(180deg, rgb(145, 44, 106), rgba(224, 148, 205, 0.904));
+  --neon-gradient: linear-gradient(180deg, rgb(3, 255, 66), rgb(1, 59, 9));
+  --soft-gradient: linear-gradient(140deg, rgb(216, 163, 197), rgb(170, 45, 160));
 
   font-family: "Poppins", roboto, sans-serif;
   background: var(--dark-bg);

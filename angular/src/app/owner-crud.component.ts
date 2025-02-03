@@ -58,6 +58,7 @@ export class OwnerCrudComponent {
   }
 
   remove(owner: Owner) {
-    this.owners = this.owners.filter(o => o.name !== owner.name);
+    // Comparando agora o objeto completo ao invés de apenas o `name`:
+    this.owners = this.owners.filter(o => o.name !== owner.name || o.age !== owner.age || o.isActive !== owner.isActive);
   }
 }
