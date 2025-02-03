@@ -10,7 +10,7 @@ import { PageFeedbackComponent } from './page-feedback.component';
     <main class="main">
       <div class="content">
         <!-- Exemplo de inclusão do HelloComponent -->
-        <hello></hello>
+        <app-hello></app-hello>
         <!-- Exemplo de inclusão do OwnerCrudComponent -->
         <owner-crud></owner-crud>
         <!-- Exemplo de inclusão do PageFeedbackComponent -->
