@@ -6,25 +6,27 @@ import { TableModule } from 'primeng/table';
 import { PanelModule } from 'primeng/panel';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { Owner } from './owner';
+import { ToggleSwitch } from 'primeng/toggleswitch';
 
 @Component({
   selector: 'owner-list',
   standalone: true, // Necessário porque estamos usando `imports`
-  imports: [CommonModule, FormsModule, ButtonModule, TableModule, PanelModule, AutoFocusModule],
+  imports: [CommonModule, FormsModule, ButtonModule, TableModule, PanelModule, AutoFocusModule, ToggleSwitch],
   template: `
-    <p-panel header="List">
+    <p-toggleswitch [(ngModel)]="checked1"/>
+    <p-panel header="Lista">
       <p-table 
         [value]="ownersList" 
-        [rows]="3"
+        [rows]="5"
         [paginator]="true"
-        [rowsPerPageOptions]="[10, 20, 30]"
+        [rowsPerPageOptions]="[5, 10, 15]"
       >
         <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="name" style="width:20%">
-              Name <p-sortIcon field="name"></p-sortIcon>
+            <th pSortableColumn="name" style="width:60%">
+              Nome <p-sortIcon field="name"></p-sortIcon>
             </th>
-            <th>Remove</th>
+            <th>Remover</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
@@ -45,4 +47,6 @@ export class OwnerListComponent {
   remove(item: Owner) {
     this.removeOutEvent.emit(item);
   }
+
+  checked1: boolean = true;  // Se você precisa desse valor, mova para aqui ou para o AppComponent
 }

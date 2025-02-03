@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { OwnerInsertComponent } from "./owner-insert.component";
 import { OwnerListComponent } from './owner-list.component';
@@ -11,7 +11,7 @@ import { DividerModule } from 'primeng/divider';
   standalone: true, // Necessário porque você está usando `imports`
   imports: [FormsModule, OwnerInsertComponent, OwnerListComponent, PanelModule, DividerModule],
   template: `
-    <p-panel header="Owner">
+    <p-panel header="Lista de presença: ">
       <owner-insert (insertOutEvent)="insert($event)"></owner-insert>
 
       <p-divider></p-divider>

@@ -1,21 +1,26 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { OwnerCrudComponent } from './owner-crud.component';
-import { routes } from './app.routes';  // Importe as rotas
+import { HelloComponent } from './hello.component';
+// Definindo as rotas
+const routes: Routes = [
+  { path: '', component: OwnerCrudComponent },  // Rota padrão para exibir OwnerCrudComponent
+  // Adicione outras rotas, se necessário
+];
 
 @NgModule({
   declarations: [
-  ],
-    imports: [
-    BrowserModule,
-    RouterModule.forRoot(routes),
-    RouterModule,
     AppComponent,
-    OwnerCrudComponent
+    OwnerCrudComponent,
+    HelloComponent
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],  // Adicione isso aqui
-//  bootstrap: [AppComponent]
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes)  // Configuração das rotas no módulo principal
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

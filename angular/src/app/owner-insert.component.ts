@@ -13,8 +13,8 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, PanelModule, AutoFocusModule],
   template: `
     <p-panel header="Inserir">
-      <label for="name">Nome:</label>
-      <input pInputText [pAutoFocus]="true" [(ngModel)]="insertOwner.name" placeholder="Nome a ser inserido" />
+      <label for="name">Nome: </label>
+      <input pInputText [pAutoFocus]="true" [(ngModel)]="insertOwner.name" placeholder="digite o nome" />
       <p-button icon="pi pi-plus" (click)="insert()" label="Adicionar"></p-button>
     </p-panel>
   `

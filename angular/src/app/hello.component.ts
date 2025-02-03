@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   template: `<h1>Olá, {{ helloName }}!</h1>`
 })
 export class HelloComponent {
-  @Input() helloName: string = 'Visitante';
+  @Input() helloName: string = 'Aluno';
 }

@@ -1,26 +1,35 @@
-import { OwnerCrudComponent } from './owner-crud.component';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { HelloComponent } from './hello.component';
-import { Component } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';  // Importando o RouterModule
-
-const routes: Routes = [
-  { path: '', component: OwnerCrudComponent },  // Rota padrão para exibir OwnerCrudComponent
-  // outras rotas, se necessário
-];
+import { OwnerCrudComponent } from './owner-crud.component';
+import { PageFeedbackComponent } from './page-feedback.component';
 
 @Component({
   selector: 'app-root',
   template: `
     <main class="main">
       <div class="content">
-        <div class="left-side">
-          <router-outlet></router-outlet>  <!-- Usando router-outlet -->
-        </div>
+        <!-- Exemplo de inclusão do HelloComponent -->
+        <hello></hello>
+        <!-- Exemplo de inclusão do OwnerCrudComponent -->
+        <owner-crud></owner-crud>
+        <!-- Exemplo de inclusão do PageFeedbackComponent -->
+        <page-feedback (feedbackGiven)="handleFeedback($event)"></page-feedback>
       </div>
     </main>
   `,
   styleUrls: ['./app.component.scss'],
-  standalone: true,  // Tornando este componente standalone
-  imports: [RouterModule, HelloComponent, OwnerCrudComponent]  // Importando o RouterModule no AppComponent
+  standalone: true,
+  imports: [
+    RouterModule,
+    HelloComponent,      // Certifique-se de importar o HelloComponent
+    OwnerCrudComponent,  // Certifique-se de importar o OwnerCrudComponent
+    PageFeedbackComponent // Certifique-se de importar o PageFeedbackComponent
+  ],
+  schemas: [NO_ERRORS_SCHEMA] 
 })
-export class AppComponent {}
+export class AppComponent {
+  handleFeedback(feedback: boolean) {
+    console.log('Feedback recebido:', feedback);
+  }
+}
