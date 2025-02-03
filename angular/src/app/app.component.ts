@@ -1,56 +1,26 @@
+import { OwnerCrudComponent } from './owner-crud.component';
+import { HelloComponent } from './hello.component';
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import { RouterModule, Routes } from '@angular/router';  // Importando o RouterModule
+
+const routes: Routes = [
+  { path: '', component: OwnerCrudComponent },  // Rota padrão para exibir OwnerCrudComponent
+  // outras rotas, se necessário
+];
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule
-  ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+    <main class="main">
+      <div class="content">
+        <div class="left-side">
+          <router-outlet></router-outlet>  <!-- Usando router-outlet -->
+        </div>
+      </div>
+    </main>
+  `,
+  styleUrls: ['./app.component.scss'],
+  standalone: true,  // Tornando este componente standalone
+  imports: [RouterModule, HelloComponent, OwnerCrudComponent]  // Importando o RouterModule no AppComponent
 })
-export class AppComponent {
-  produtos = [
-    { nome: 'Produto 1', preco: 10.99, disponivel: true },
-    { nome: 'Produto 2', preco: 20.99, disponivel: false }
-  ];
-
-  displayedColumns: string[] = ['nome', 'preco', 'disponivel', 'acoes'];
-  editIndex: number | null = null;
-  produtoEdit: any = { nome: '', preco: 0, disponivel: false };
-
-  onAdd() {
-    this.produtos.push({ ...this.produtoEdit });
-    this.produtoEdit = { nome: '', preco: 0, disponivel: false };
-  }
-
-  onEdit(index: number) {
-    this.editIndex = index;
-    this.produtoEdit = { ...this.produtos[index] };
-  }
-
-  onUpdate() {
-    if (this.editIndex !== null) {
-      this.produtos[this.editIndex] = { ...this.produtoEdit };
-      this.editIndex = null;
-      this.produtoEdit = { nome: '', preco: 0, disponivel: false };
-    }
-  }
-
-  onDelete(index: number) {
-    this.produtos.splice(index, 1);
-  }
-}
+export class AppComponent {}
