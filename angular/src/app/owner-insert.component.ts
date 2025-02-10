@@ -51,7 +51,7 @@ import { OwnerService } from './owner-service';
         <p-divider></p-divider>
 
         <label for="active">Active: </label>
-        <p-toggleButton [(ngModel)]="insertOwner.active" name="inputActive"></p-toggleButton>
+        <p-toggleButton [(ngModel)]="insertOwner.isActive" name="inputActive"></p-toggleButton>
 
         <p-divider></p-divider>
 
