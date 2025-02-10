@@ -4,13 +4,13 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'owner-crud',
+  standalone: true,
   imports: [FormsModule, RouterOutlet],
   template: `
     <h2>Owners</h2>
-
-    <router-outlet />
+    <router-outlet></router-outlet>
   `,
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class OwnerCrudComponent {
 }

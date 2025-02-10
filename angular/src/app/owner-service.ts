@@ -1,55 +1,42 @@
-import { Injectable } from "@angular/core"
-import { Owner } from "./owner"
+import { Injectable } from "@angular/core";
+import { Owner } from "./owner";
 
 @Injectable({
     providedIn: 'root'
-  })
+})
 export class OwnerService {
 
-    private beans = new Array<Owner>
+    private beans: Owner[] = [];
 
-    createBean(): Owner{
-        return new Owner("")
+    createBean(): Owner {
+        return new Owner("", 0, false);
     }
-        
-    insert(bean: Owner): Owner {
-        this.beans.push(bean)
 
-        return bean
+    insert(bean: Owner): Owner {
+        this.beans.push(bean);
+        return bean;
     }
 
     remove(id: string): void {
-        let index = this.beans.findIndex(localBean => localBean.name === id)
-
-        let result = index > -1
-        if (result) {
-            this.beans.splice(index, 1)[0]
+        const index = this.beans.findIndex(localBean => localBean.name === id);
+        if (index > -1) {
+            this.beans.splice(index, 1);
         }
     }
 
     update(id: string, bean: Owner): Owner {
-        let index = this.beans.findIndex(bean => bean.name === id)
-
-        let result = index > -1
-        if (result) {
-            this.beans[index] = bean
-        }
-
-        return bean
-    }
-
-    findAll(): Array<Owner> {
-        return this.beans
-    }
-
-    findById(id: string): Owner {
-        let index = this.beans.findIndex(bean => bean.name === id)
-
-        let result = this.createBean()
+        const index = this.beans.findIndex(existingBean => existingBean.name === id);
         if (index > -1) {
-            result = this.beans[index]
+            this.beans[index] = bean;
         }
+        return bean;
+    }
 
-        return result
+    findAll(): Owner[] {
+        return [...this.beans]; // Retorna uma cópia para evitar mutações indesejadas
+    }
+
+    findById(id: string): Owner | null {
+        return this.beans.find(bean => bean.name === id) || null;
     }
 }
