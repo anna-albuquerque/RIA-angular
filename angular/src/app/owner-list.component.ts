@@ -8,11 +8,13 @@ import { Owner } from './owner';
 import { Router } from '@angular/router';
 import { OwnerService } from './owner-service';
 import { DividerModule } from 'primeng/divider';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'owner-list',
   standalone: true,
-  imports: [FormsModule, ButtonModule, TableModule, PanelModule, AutoFocusModule, DividerModule],
+  imports: [CommonModule, FormsModule, ButtonModule, TableModule, PanelModule, AutoFocusModule, DividerModule],
   template: `
     <p-button (onClick)="startInsert()" autofocus="true">New</p-button>
 
