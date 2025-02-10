@@ -23,8 +23,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog'; // Importação nec
   ],
   template: `
       <p-confirmDialog></p-confirmDialog>
-
+        <app-hello>
+        <p-divider></p-divider>
       <p-panel header="Lista de Presença">
+
         <owner-insert (insertOutEvent)="insert($event)"></owner-insert>
         
         <p-divider></p-divider>
