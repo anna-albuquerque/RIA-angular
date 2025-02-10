@@ -53,4 +53,3 @@ export class OwnerService {
         return result
     }
 }
-  
