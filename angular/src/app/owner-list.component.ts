@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -11,6 +11,7 @@ import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'owner-list',
+  standalone: true,
   imports: [FormsModule, ButtonModule, TableModule, PanelModule, AutoFocusModule, DividerModule],
   template: `
     <p-button (onClick)="startInsert()" autofocus="true">New</p-button>
@@ -19,61 +20,56 @@ import { DividerModule } from 'primeng/divider';
 
     <p-panel header="List">
       <p-table 
-    [value]="ownersList" 
-    [rows]="3"
-    [paginator]="true"
-    [rowsPerPageOptions]="[3, 5, 10]"
->
-    <ng-template #header>
-        <tr>
+        [value]="ownersList" 
+        [rows]="5"
+        [paginator]="true"
+        [rowsPerPageOptions]="[5, 10, 20]"
+      >
+        <ng-template #header>
+          <tr>
             <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
             <th pSortableColumn="age">Age <p-sortIcon field="age" /></th>
             <th pSortableColumn="active">Status <p-sortIcon field="active" /></th>
             <th>Remove</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-item>
-        <tr>
+          </tr>
+        </ng-template>
+        <ng-template #body let-item>
+          <tr>
             <td>{{ item.name }}</td>
             <td>{{ item.age }}</td>
             <td>
-                <span [ngClass]="{ 'text-green-500': item.active, 'text-red-500': !item.active }">
-                    {{ item.active ? 'Active' : 'Inactive' }}
-                </span>
+              <span [ngClass]="{ 'text-green-500': item.active, 'text-red-500': !item.active }">
+                {{ item.active ? 'Active' : 'Inactive' }}
+              </span>
             </td>
-            <td><p-button icon="pi pi-trash" (onClick)="remove(item)" /></td>
-        </tr>
-    </ng-template>
-</p-table>
-
+            <td>
+              <p-button icon="pi pi-trash" (onClick)="remove(item)" />
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </p-panel>
   `
 })
 export class OwnerListComponent {
-  ownersList!: Array<Owner>
-  router: Router
-  ownerService: OwnerService
+  ownersList: Owner[] = [];
 
-  constructor(private newRouter: Router, private newOwnerService: OwnerService) {
-    this.router = newRouter;
-    this.ownerService = newOwnerService
-  }
+  constructor(private router: Router, private ownerService: OwnerService) {}
 
   ngOnInit() {
-    this.findAll()
+    this.findAll();
   }
 
   remove(item: Owner) {
-    this.ownerService.remove(item.name)
-
-    this.findAll()
+    this.ownerService.remove(item.name);
+    this.findAll(); // Atualiza a lista após remover
   }
 
   startInsert(): void {
-    this.router.navigate(["owners/new"])
+    this.router.navigate(["owners/new"]);
   }
 
   findAll(): void {
-    this.ownersList = this.ownerService.findAll()
+    this.ownersList = this.ownerService.findAll();
   }
 }

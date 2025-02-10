@@ -5,8 +5,11 @@ import { Owner } from "./owner";
     providedIn: 'root'
 })
 export class OwnerService {
-
-    private beans: Owner[] = [];
+    private beans: Owner[] = [
+        new Owner("John Doe", 30, true),
+        new Owner("Jane Smith", 25, false),
+        new Owner("Carlos Silva", 40, true)
+    ]; // Adicionando dados iniciais para testes
 
     createBean(): Owner {
         return new Owner("", 0, false);
@@ -33,7 +36,7 @@ export class OwnerService {
     }
 
     findAll(): Owner[] {
-        return [...this.beans]; // Retorna uma cópia para evitar mutações indesejadas
+        return [...this.beans]; // Retorna uma cópia para evitar mutações
     }
 
     findById(id: string): Owner | null {

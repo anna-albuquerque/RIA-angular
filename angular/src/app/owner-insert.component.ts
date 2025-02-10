@@ -45,30 +45,30 @@ import { OwnerService } from './owner-service';
 
         <p-divider></p-divider>
 
-        <label for="age">Idade: </label>
-        <input pInputText [(ngModel)]="insertOwner.age" name="inputAge" type="number" placeholder="Digite a idade" required />
+        <label for="age">Age: </label>
+        <input pInputText [(ngModel)]="insertOwner.age" name="inputAge" type="number" placeholder="Enter age" required />
 
         <p-divider></p-divider>
 
-        <label for="isActive">Ativo: </label>
-        <p-toggleButton [(ngModel)]="insertOwner.isActive" name="inputActive"></p-toggleButton>
+        <label for="active">Active: </label>
+        <p-toggleButton [(ngModel)]="insertOwner.active" name="inputActive"></p-toggleButton>
 
         <p-divider></p-divider>
 
-        <p-button icon="pi pi-check" (onClick)="insert()" [disabled]="inputName.invalid" [style]="{'margin-right': '10px'}"></p-button>
+        <p-button icon="pi pi-check" (onClick)="insert(insertForm)" [disabled]="inputName.invalid" [style]="{'margin-right': '10px'}"></p-button>
         <p-button icon="pi pi-times" (onClick)="cancelInsert(insertForm)"></p-button>
       </p-panel>
     </form>
   `
 })
-
 export class OwnerInsertComponent {
-  insertOwner = new Owner('', 0, true);
+  insertOwner: Owner = new Owner("", 0, false);
 
   constructor(private router: Router, private ownerService: OwnerService) {}
 
-  insert() {
+  insert(form: NgForm) {
     this.ownerService.insert(this.insertOwner);
+    form.resetForm(); // Reseta o formulário após a inserção
     this.router.navigate(["owners"]);
   }
 
