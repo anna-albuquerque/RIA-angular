@@ -19,34 +19,33 @@ import { DividerModule } from 'primeng/divider';
 
     <p-panel header="List">
       <p-table 
-        [value]="ownersList" 
-        [rows]="3"
-        [paginator]="true"
-        [rowsPerPageOptions]="[3, 5, 10]"
-      >
-        <ng-template #header>
-          <tr>
-              <th pSortableColumn="name" style="width:20%">
-                Name <p-sortIcon field="name" />
-              </th>
-              <th>Remove</th>
-          </tr>
-          <th>
-              <p-columnFilter
-                  type="text"
-                  field="name"
-                  placeholder="Search by name"
-                  ariaLabel="Filter Name"
-              ></p-columnFilter>
-          </th>
-        </ng-template>
-        <ng-template #body let-item>
-            <tr>
-                <td>{{ item.name }}</td>
-                <td><p-button icon="pi pi-trash" (onClick)="remove(item)" /></td>
-            </tr>
-        </ng-template>
-      </p-table>
+    [value]="ownersList" 
+    [rows]="3"
+    [paginator]="true"
+    [rowsPerPageOptions]="[3, 5, 10]"
+>
+    <ng-template #header>
+        <tr>
+            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+            <th pSortableColumn="age">Age <p-sortIcon field="age" /></th>
+            <th pSortableColumn="active">Status <p-sortIcon field="active" /></th>
+            <th>Remove</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-item>
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.age }}</td>
+            <td>
+                <span [ngClass]="{ 'text-green-500': item.active, 'text-red-500': !item.active }">
+                    {{ item.active ? 'Active' : 'Inactive' }}
+                </span>
+            </td>
+            <td><p-button icon="pi pi-trash" (onClick)="remove(item)" /></td>
+        </tr>
+    </ng-template>
+</p-table>
+
     </p-panel>
   `
 })
