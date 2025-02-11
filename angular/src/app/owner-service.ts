@@ -1,45 +1,27 @@
 import { Injectable } from "@angular/core";
 import { Owner } from "./owner";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class OwnerService {
-    private beans: Owner[] = [
-        new Owner("John Doe", 30, true),
-        new Owner("Jane Smith", 25, false),
-        new Owner("Carlos Silva", 40, true)
-    ]; // Adicionando dados iniciais para testes
+  private beans: Owner[] = [];
+  private ownersSubject = new BehaviorSubject<Owner[]>(this.beans);
 
-    createBean(): Owner {
-        return new Owner("", 0, false);
-    }
+  constructor() {}
 
-    insert(bean: Owner): Owner {
-        this.beans.push(bean);
-        return bean;
-    }
+  getOwners(): Observable<Owner[]> {
+    return this.ownersSubject.asObservable(); // Retorna a lista como um Observable
+  }
 
-    remove(id: string): void {
-        const index = this.beans.findIndex(localBean => localBean.name === id);
-        if (index > -1) {
-            this.beans.splice(index, 1);
-        }
-    }
+  insert(bean: Owner): void {
+    this.beans.push(bean);
+    this.ownersSubject.next([...this.beans]); // Notifica os componentes sobre a mudança
+  }
 
-    update(id: string, bean: Owner): Owner {
-        const index = this.beans.findIndex(existingBean => existingBean.name === id);
-        if (index > -1) {
-            this.beans[index] = bean;
-        }
-        return bean;
-    }
-
-    findAll(): Owner[] {
-        return [...this.beans]; // Retorna uma cópia para evitar mutações
-    }
-
-    findById(id: string): Owner | null {
-        return this.beans.find(bean => bean.name === id) || null;
-    }
+  remove(id: string): void {
+    this.beans = this.beans.filter(localBean => localBean.name !== id);
+    this.ownersSubject.next([...this.beans]); // Atualiza os observadores
+  }
 }

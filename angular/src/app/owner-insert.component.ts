@@ -68,7 +68,7 @@ export class OwnerInsertComponent {
 
   insert(form: NgForm) {
     this.ownerService.insert(this.insertOwner);
-    form.resetForm(); // Reseta o formulário após a inserção
+    this.insertOwner = new Owner('', 0, true); //Reseta o formulário após a inserção
     this.router.navigate(["owners"]);
   }
 
