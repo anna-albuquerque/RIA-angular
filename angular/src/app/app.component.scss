@@ -9,7 +9,7 @@
   --border-radius: 12px;
 
   // Gradientes vibrantes
-  --neon-gradient: linear-gradient(180deg, rgb(3, 255, 66), rgb(1, 59, 9));
+  --neon-gradient: linear-gradient(180deg, rgb(3, 49, 255), rgb(1, 16, 59));
   --soft-gradient: linear-gradient(140deg, rgb(216, 163, 197), rgb(170, 45, 160));
 
   font-family: "Poppins", roboto, sans-serif;
@@ -64,7 +64,7 @@ main {
 }
 
 button {
-  background: linear-gradient(135deg, #2b2630, #5c4351);
+  background: linear-gradient(135deg, #5f3688, #a578b3);
   border: none;
   padding: 10px 20px;
   font-size: 1rem;

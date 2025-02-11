@@ -1,37 +1,79 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { AutoFocusModule } from 'primeng/autofocus';
-import { Owner } from './owner';
+import { DividerModule } from 'primeng/divider';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { Owner } from './owner';
+import { OwnerService } from './owner-service';
 
 @Component({
-  selector: 'owner-insert',
-  standalone: true, // Necessário porque estamos usando `imports`
-  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, PanelModule, AutoFocusModule],
+  selector: 'owner-insert-template',
+  standalone: true,
+  imports: [
+    FormsModule, 
+    ButtonModule, 
+    InputTextModule, 
+    PanelModule, 
+    AutoFocusModule, 
+    DividerModule, 
+    ToggleButtonModule, 
+    CommonModule
+  ],
   template: `
-    <p-panel header="Inserir">
-      <label for="name">Nome: </label>
-      <input pInputText [pAutoFocus]="true" [(ngModel)]="insertOwner.name" placeholder="Digite o nome" />
-      <label for="age">Idade: </label>
-      <input pInputText [(ngModel)]="insertOwner.age" type="number" placeholder="Digite a idade" />
-      <label for="isActive">Ativo: </label>
-      <p-toggleswitch [(ngModel)]="insertOwner.isActive"></p-toggleswitch>
-      <p-button icon="pi pi-plus" (click)="insert()" label="Adicionar"></p-button>
-    </p-panel>
+    <form #insertForm="ngForm">
+      <p-panel header="Insert">
+        <label for="name">Name:</label>
+        <input id="name" 
+          name="inputName"
+          pInputText 
+          [pAutoFocus]="true" 
+          placeholder="Name to be inserted" 
+          #inputName="ngModel" 
+          [(ngModel)]="insertOwner.name" 
+          required 
+          minlength="3" />
+          
+        <div *ngIf="inputName.invalid && (inputName.dirty || inputName.touched)" class="alert">
+          <div *ngIf="inputName.errors?.['required']">Name is required.</div>
+          <div *ngIf="inputName.errors?.['minlength']">Name must be at least 3 characters long.</div>
+        </div>
+
+        <p-divider></p-divider>
+
+        <label for="age">Age: </label>
+        <input pInputText [(ngModel)]="insertOwner.age" name="inputAge" type="number" placeholder="Enter age" required />
+
+        <p-divider></p-divider>
+
+        <label for="active">Active: </label>
+        <p-toggleButton [(ngModel)]="insertOwner.isActive" name="inputActive"></p-toggleButton>
+
+        <p-divider></p-divider>
+
+        <p-button icon="pi pi-check" (onClick)="insert(insertForm)" [disabled]="inputName.invalid" [style]="{'margin-right': '10px'}"></p-button>
+        <p-button icon="pi pi-times" (onClick)="cancelInsert(insertForm)"></p-button>
+      </p-panel>
+    </form>
   `
 })
 export class OwnerInsertComponent {
-  insertOwner = new Owner('', 0, true);  // Inicializando com um valor padrão para idade e isActive
+  insertOwner: Owner = new Owner("", 0, false);
 
-  @Output() insertOutEvent = new EventEmitter<Owner>();
+  constructor(private router: Router, private ownerService: OwnerService) {}
 
-  insert() {
-    if (this.insertOwner.name.trim() && this.insertOwner.age >= 0) {  // Validação da idade
-      this.insertOutEvent.emit(this.insertOwner);
-      this.insertOwner = new Owner('', 0, true);  // Resetando após o envio
-    }
+  insert(form: NgForm) {
+    this.ownerService.insert(this.insertOwner);
+    this.insertOwner = new Owner('', 0, true); //Reseta o formulário após a inserção
+    this.router.navigate(["owners"]);
+  }
+
+  cancelInsert(form: NgForm) {
+    form.resetForm();
+    this.router.navigate(["owners"]);
   }
 }

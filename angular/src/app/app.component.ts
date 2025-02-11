@@ -1,34 +1,33 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { PageFeedbackComponent } from './page-feedback.component';
+import { FormsModule } from '@angular/forms';
+import { HelloComponent } from './hello.component';
+import { PanelModule } from 'primeng/panel';
+import { OwnerCrudComponent } from './owner-crud.component';
 
 @Component({
   selector: 'app-root',
+  imports: [FormsModule, HelloComponent, OwnerCrudComponent, PanelModule],
   template: `
     <main class="main">
       <div class="content">
-        <!-- Usando o router-outlet para navegação dinâmica -->
-        <router-outlet></router-outlet>
+        <div class="left-side">
+          <app-hello helloName="DEV"></app-hello>
 
-        <!-- Exemplo de inclusão do PageFeedbackComponent, se necessário -->
-        <page-feedback (feedbackGiven)="handleFeedback($event)"></page-feedback>
+          <owner-crud> </owner-crud>
+        </div>  
       </div>
     </main>
   `,
-  styleUrls: ['./app.component.scss'],
-  standalone: true,
-  imports: [
-    RouterModule,
-    PageFeedbackComponent // Inclui PageFeedbackComponent
-  ]
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  handleFeedback(feedback: boolean) {
-    // Exemplo de lógica de feedback
-    if (feedback) {
-      console.log('Feedback positivo recebido!');
-    } else {
-      console.log('Feedback negativo recebido!');
-    }
+  names: Array<string> = []
+
+  insert(name: string) {
+    this.names.push(name)
+  }
+
+  remove(item: string) {
+    this.names = this.names.filter(internalName => internalName !== item)
   }
 }
